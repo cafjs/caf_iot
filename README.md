@@ -82,7 +82,7 @@ We view the channel as an array with the sequence of all the commands, but we on
              "index": 76
              "values": {
                    "mycommands": {
-                      "type": "caf_iot.channel"
+                      "type": "caf_iot.channel_ack"
                       "firstIndex": 36
                     }
                 }
