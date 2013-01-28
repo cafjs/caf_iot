@@ -16,6 +16,7 @@ Periodically the device POSTs to a URL unique to that device, for example: `http
 
     // FROM DEVICE TO CLOUD
     {
+        "deviceView" : true,
         "toCloud": {
              "version": 37,
              "values": {
@@ -28,12 +29,13 @@ Periodically the device POSTs to a URL unique to that device, for example: `http
          }
      }
      
-where `version` is the version number of the map. Note that the device provides the `version` of its locally cached version of the `fromCloud` map as an optimization, i.e., the CA can skip sending `values` again if the map has not changed.
+where `version` in `toCloud` is the version number of the map. Note that the device provides the `version` of its locally cached version of the `fromCloud` map as an optimization, i.e., the CA can skip sending `values` again if the map has not changed.
 
 The response to the POST is similar:
 
     // FROM CLOUD TO DEVICE
     {
+        "deviceView" : false,
         "fromCloud": {
              "version": 76,
              "values": {
@@ -46,6 +48,8 @@ The response to the POST is similar:
          }
      }
      
+The flag `deviceView` helps to identify the version of any description. When true, the description is a snapshot of the device and the version number is `toCloud.version`; otherwise, is a snapshot of the CA and the version number is `fromCloud.version`.
+     
 Changes to both maps are asynchronous and there is no guarantee that the response has been processed after seeing the request. **This is not an RPC**. It is just a way to sync two maps with a single POST. 
 
 The shared map model works well when we want to make the device sensor data visible in the cloud or set device output pins to some value.  Moreover, in those cases we typically only care about the current state, and we just need to keep the most recent version of the map.
@@ -54,6 +58,7 @@ This is not the case when we want to send a sequence of commands to the device. 
 
     // FROM CLOUD TO DEVICE
     {
+        "deviceView" : false,
         "fromCloud": {
              "version": 76,
              "values": {
@@ -70,11 +75,11 @@ This is not the case when we want to send a sequence of commands to the device. 
          },
          ...
          
-We view the channel as an array containing the command sequence, but we can exclude from that sequence commands that have already been executed by the device. `firstIndex` gives you the index of the first non-executed command in that logical array. To facilitate garbage collecting the channel, the device will inform us when it has executed a command in the contents of the next POST, e.g.:
-
+We view the channel as an array containing the command sequence, but we can exclude from that sequence commands that have already been executed by the device. `firstIndex` gives you the index of the first non-executed command in that logical array. To facilitate garbage collecting the channel, the device will inform us when it has executed all the  pending commands by incrementing `fromCloud.version` in the contents of the next POST, for example:
 
     // FROM DEVICE TO CLOUD
     {
+        "deviceView" : true,
         "toCloud": {
              "version": 59,
              "values": {
@@ -84,21 +89,15 @@ We view the channel as an array containing the command sequence, but we can excl
          },
          "fromCloud": {
              "version": 76
-             "values": {
-                   "commands": {
-                      "type": "caf_iot.channel_ack"
-                      "firstIndex": 36
-                    }
-                }
-             }
          }
      }
  
+When the CA needs to see the output of these commands, a separate channel in `toCloud` with the same name (`commands`) and matching indexes will contain the responses. Garbage collection of this channel is similar to the previous case, i.e., the CA should not increment the `toCloud.version` until it has processed all the responses.   
+
 The device is assumed stateless and commands should always be either idempotent or we just don't care if they execute multiple times. The reason is that  there is no guarantee that the channel always contains non-executed commands. 
 
-The cloud component ignores updates that have a version number smaller than the current one. When a device (re-)starts it doesn't know the last version number and will use 0 instead. The response always contains the last one, and the next request from that device should use this new value to avoid being ignored again.
+The cloud component ignores updates that have a version number smaller than or equal to the current one. A newly created device starts with 0 (empty initialization) and, therefore, the first real update should start with 1. We reserve a version 0 in a request for a different purpose: when a device (re-)starts it doesn't know the last version number and will use 0 instead. The response contains the last request that came from the device (i.e.,`"deviceView" : true`) , and then the device would know what value to use for the next request. Similarly, whenever an update fails an error is returned (anything that JSON parses into a string as opposed to an object is an error), and the client should do a request with version 0 to try to resync.
 
-When the CA needs to see the output of these commands, a separate channel in `toCloud` with the same name (`commands`) and matching indexes will contain the responses. Garbage collection of this channel is similar to the previous case.   
 
 
 ## API
