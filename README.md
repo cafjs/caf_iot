@@ -63,7 +63,8 @@ This is not the case when we want to send a sequence of commands to the device. 
              "version": 76,
              "values": {
                    "commands": {
-                      "type": "caf_iot.channel"
+                      "type": "caf_iot.channel",
+                      "lastModified": 76,
                       "firstIndex": 34,
                       "values": [
                                  "doAction34...",
@@ -75,7 +76,7 @@ This is not the case when we want to send a sequence of commands to the device. 
          },
          ...
          
-We view the channel as an array containing the command sequence, but we can exclude from that sequence commands that have already been executed by the device. `firstIndex` gives you the index of the first non-executed command in that logical array. To facilitate garbage collecting the channel, the device will inform us when it has executed all the  pending commands by incrementing `fromCloud.version` in the contents of the next POST, for example:
+We view the channel as an array containing the command sequence, but we can exclude from that sequence commands that have already been executed by the device. `firstIndex` gives you the index of the first non-executed command in that logical array. To facilitate garbage collecting the channel, the device will inform us when it has executed all the  pending commands by incrementing `fromCloud.version` in the contents of the next POST, and we can compare that value with the `lastModified` version,  for example:
 
     // FROM DEVICE TO CLOUD
     {
