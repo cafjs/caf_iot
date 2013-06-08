@@ -1,7 +1,7 @@
 {
     "name": "caf_iot",
     "description": "Enables simple interactions between a CA and a gadget of the IoT",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Antonio Lain <antlai@cafjs.com>",
     "dependencies": {
         "caf_core" : ">= 0.0.1"
