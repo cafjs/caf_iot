@@ -1,0 +1,9 @@
+image: drone/node:0.10 
+script:
+  - npm install
+  - npm test
+services:
+notify:
+  email:
+    recipients:
+      - ci.cafjs@gmail.com

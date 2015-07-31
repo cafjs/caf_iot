@@ -1,0 +1,148 @@
+{
+    "name": "top",
+    "module" : "caf_platform#platform_main",
+    "description" : "IoT platform supervisor",
+    "env" : {
+        "myId" : "process.env.MY_ID||foo-ca1",
+        "appProtocol" : "process.env.APP_PROTOCOL||https",
+        "appPublisher" : "process.env.APP_PUBLISHER||null",
+        "appLocalName" : "process.env.APP_LOCAL_NAME||null",
+        "appSuffix" : "process.env.APP_SUFFIX||cafjs.com",
+        "maxRetries" : "process.env.MAX_RETRIES||10",
+        "retryDelay" : "process.env.RETRY_DELAY||1000",
+        "interval": "process.env.INTERVAL||5000",
+        "longInterval": "process.env.LONG_INTERVAL||10000",
+        "dieDelay": "process.env.DIE_DELAY||-1",
+        "maxHangRetries":  "process.env.MAX_HANG_RETRIES||200",
+        "methodsFile" : "process.env.METHODS_FILE||./iot_methods.js",
+        "tokenFile" : "process.env.TOKEN_FILE||./token"
+    },
+    "components": [
+        {
+            "name": "log",
+            "module": "caf_components#plug_log",
+            "description": "Logger service",
+            "env" : {
+                "logLevel" : "DEBUG"
+            }
+        },
+        {
+            "name": "cloud",
+            "module": "./plug_iot_cloud",
+            "description": "Manage connection with Cloud Assistant.",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay",
+                "appProtocol" : "$._.env.appProtocol",
+                "appPublisher" : "$._.env.appPublisher",
+                "appLocalName" : "$._.env.appLocalName",
+                "appSuffix" : "$._.env.appSuffix",
+                "myId" : "$._.env.myId",
+                "tokenFile" : "$._.env.tokenFile"
+            },
+            "components" : [
+                {
+                    "module": "./proxy_iot_cloud",
+                    "name": "proxy",
+                    "description": "Access to Cloud Assistant",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "sharing",
+            "module": "./plug_iot_sharing",
+            "description": "SharedMaps support service",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+             },
+            "components" : [
+                {
+                    "module": "./proxy_iot_sharing",
+                    "name": "proxy",
+                    "description": "Allows access to SharedMaps",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "queue",
+            "module": "./plug_iot_queue",
+            "description": "Manages a queue to serialize commands",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+             },
+            "components" : [
+                {
+                    "module": "./proxy_iot_queue",
+                    "name": "proxy",
+                    "description": "Access to the queue of commands",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cron",
+            "module": "./plug_iot_cron",
+            "description": "Cron support service",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+             },
+            "components" : [
+                {
+                    "module": "./proxy_iot_cron",
+                    "name": "proxy",
+                    "description": "Allows access to Cron services",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "bundles",
+            "module": "./plug_iot_bundles",
+            "description": "Schedules commands in timed bundles.",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay"
+             },
+            "components" : [
+                {
+                    "module": "./proxy_iot_bundles",
+                    "name": "proxy",
+                    "description": "Allows access to the bundles scheduler",
+                    "env" : {
+                    }
+                }
+            ]
+        },
+        {
+            "name": "handler",
+            "module": "./plug_iot_handler",
+            "description": "Handler object with all the app methods.",
+            "env" : {
+                "maxRetries" : "$._.env.maxRetries",
+                "retryDelay" : "$._.env.retryDelay",
+                "methodsFile" : "$._.env.methodsFile"
+            },
+            "components" : [
+                {
+                    "module": "./proxy_iot_handler",
+                    "name": "props",
+                    "description": "Exposes read-only properties to app methods",
+                    "env" : {
+
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+
