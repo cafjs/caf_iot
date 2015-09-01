@@ -129,7 +129,8 @@
             "env" : {
                 "maxRetries" : "$._.env.maxRetries",
                 "retryDelay" : "$._.env.retryDelay",
-                "methodsFile" : "$._.env.methodsFile"
+                "methodsFile" : "$._.env.methodsFile",
+                "interval" : "$._.env.interval"
             },
             "components" : [
                 {
