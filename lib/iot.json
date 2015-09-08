@@ -51,24 +51,6 @@
             ]
         },
         {
-            "name": "sharing",
-            "module": "./plug_iot_sharing",
-            "description": "SharedMaps support service",
-            "env" : {
-                "maxRetries" : "$._.env.maxRetries",
-                "retryDelay" : "$._.env.retryDelay"
-             },
-            "components" : [
-                {
-                    "module": "./proxy_iot_sharing",
-                    "name": "proxy",
-                    "description": "Allows access to SharedMaps",
-                    "env" : {
-                    }
-                }
-            ]
-        },
-        {
             "name": "queue",
             "module": "./plug_iot_queue",
             "description": "Manages a queue to serialize commands",
