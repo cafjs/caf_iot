@@ -30,7 +30,7 @@
             "components" : [
                 {
                     "name": "log",
-                    "module": "caf_components#plug_log",
+                    "module": "./plug_iot_log",
                     "description": "Logger service",
                     "env" : {
                         "maxRetries" : "$._.env.maxRetries",
