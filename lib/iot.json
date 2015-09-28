@@ -8,6 +8,7 @@
         "appPublisher" : "process.env.APP_PUBLISHER||null",
         "appLocalName" : "process.env.APP_LOCAL_NAME||null",
         "appSuffix" : "process.env.APP_SUFFIX||cafjs.com",
+        "iotSession" : "process.env.IOT_SESSION||iot",
         "maxRetries" : "process.env.MAX_RETRIES||10",
         "retryDelay" : "process.env.RETRY_DELAY||5000",
         "interval": "process.env.INTERVAL||5000",
@@ -76,6 +77,7 @@
                         "appPublisher" : "$._.env.appPublisher",
                         "appLocalName" : "$._.env.appLocalName",
                         "appSuffix" : "$._.env.appSuffix",
+                        "session" : "$._.env.iotSession",
                         "myId" : "$._.env.myId",
                         "tokenFile" : "$._.env.tokenFile"
                     },
