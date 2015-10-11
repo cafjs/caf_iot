@@ -3,6 +3,7 @@ script:
   - npm install
   - npm test
 services:
+  - redis
 notify:
   email:
     recipients:
