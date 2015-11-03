@@ -1,6 +1,6 @@
 {
     "name": "top",
-    "module" : "caf_platform#platform_main",
+    "module" : "./platform_iot_main",
     "description" : "IoT platform supervisor",
     "env" : {
         "myId" : "process.env.MY_ID||foo-ca1",

@@ -1,11 +1,10 @@
 {
     "name": "caf_iot",
     "description": "IoT platform that runs on the device and pairs with a Cloud Assistant.",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "author": "Antonio Lain <antlai@cafjs.com>",
     "dependencies": {
         "caf_components": "^0.2.0",
-        "caf_platform": "^0.2.0",
         "caf_transport": "^0.2.0",
         "caf_cli": "^0.2.0",
         "caf_sharing": "^0.2.0"
