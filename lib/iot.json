@@ -17,7 +17,8 @@
         "dieDelay": "process.env.DIE_DELAY||-1",
         "maxHangRetries":  "process.env.MAX_HANG_RETRIES||200",
         "methodsFileName" : "process.env.METHODS_FILE_NAME||./iot_methods.js",
-        "tokenFile" : "process.env.TOKEN_FILE||./token"
+        "tokenDir" : "process.env.TOKEN_DIR||null",
+        "tokenFile" : "process.env.TOKEN_FILE||token"
     },
     "components": [
         {
@@ -80,6 +81,7 @@
                         "appSuffix" : "$._.env.appSuffix",
                         "session" : "$._.env.iotSession",
                         "myId" : "$._.env.myId",
+                        "tokenDir" : "$._.env.tokenDir",
                         "tokenFile" : "$._.env.tokenFile"
                     },
                     "components" : [
