@@ -131,6 +131,26 @@
                     ]
                 },
                 {
+                    "name": "nap",
+                    "module": "./plug_iot_nap",
+                    "description": "Schedules a restart and shutdown.",
+                    "env" : {
+                        "maxRetries" : "$._.env.maxRetries",
+                        "retryDelay" : "$._.env.retryDelay",
+                        "mailboxDir" : "process.env.MAILBOX_DIR||/control",
+                        "mailboxFile" : "process.env.MAILBOX_FILE||mailbox"
+                    },
+                    "components" : [
+                        {
+                            "module": "./proxy_iot_nap",
+                            "name": "proxy",
+                            "description": "Allows access to restart/shutdown",
+                            "env" : {
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "handler",
                     "module": "./plug_iot_handler",
                     "description": "Handler object with all the app methods.",
