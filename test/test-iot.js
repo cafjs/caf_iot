@@ -1,10 +1,10 @@
 var hello = require('./hello/main.js');
 var helloIoT = require('./hello/iot/main.js');
 
-var caf_core = require('caf_core');
+var caf_components = require('caf_components');
 var cli = require('caf_cli');
-var myUtils = caf_core.caf_components.myUtils;
-var async = caf_core.async;
+var myUtils = caf_components.myUtils;
+var async = caf_components.async;
 var app = hello;
 var appIoT = helloIoT;
 var crypto = require('crypto');
