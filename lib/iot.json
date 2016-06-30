@@ -28,7 +28,8 @@
             "env" : {
                 "maxRetries" : "$._.env.maxRetries",
                 "retryDelay" : "$._.env.retryDelay",
-                "interval": "$._.env.interval"
+                "interval": "$._.env.interval",
+                "myId" : "$._.env.myId"
             },
             "components" : [
                 {
@@ -80,7 +81,6 @@
                         "appLocalName" : "$._.env.appLocalName",
                         "appSuffix" : "$._.env.appSuffix",
                         "session" : "$._.env.iotSession",
-                        "myId" : "$._.env.myId",
                         "tokenDir" : "$._.env.tokenDir",
                         "tokenFile" : "$._.env.tokenFile"
                     },
@@ -175,6 +175,3 @@
         }
     ]
 }
-
-
-
