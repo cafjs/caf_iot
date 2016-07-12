@@ -13,7 +13,7 @@
         "maxRetries" : "process.env.MAX_RETRIES||10",
         "retryDelay" : "process.env.RETRY_DELAY||5000",
         "interval": "process.env.INTERVAL||5000",
-        "longInterval": "process.env.LONG_INTERVAL||10000",
+        "longInterval": "process.env.LONG_INTERVAL||30000",
         "dieDelay": "process.env.DIE_DELAY||-1",
         "maxHangRetries":  "process.env.MAX_HANG_RETRIES||200",
         "methodsFileName" : "process.env.METHODS_FILE_NAME||./iot_methods.js",
@@ -170,6 +170,14 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "cron_ripper",
+                    "module": "./cron_iot_ripper",
+                    "description": "Ripper service cron",
+                    "env" : {
+                        "interval":"$._.env.longInterval"
+                    }
                 }
             ]
         }
