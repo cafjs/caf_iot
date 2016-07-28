@@ -1,8 +1,9 @@
 build:
-  image: node:4.3 
+  image: node:4.3
   commands:
     - npm install
     - npm test
+    - npm run eslint
 
 compose:
   database:
