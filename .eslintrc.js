@@ -18,8 +18,6 @@ module.exports = {
         "comma-spacing": ["error", {"before": false, "after": true}],
         "semi-spacing": ["error", {"before": false, "after": true}],
         "space-in-parens": ["error", "never"],
-        "semi": ["error", "always"],
-        "linebreak-style": ["error", "unix"],
         "max-len" : ["error", 80],
         "no-multiple-empty-lines": "error",
         "no-trailing-spaces" : ["error"]
