@@ -1,0 +1,28 @@
+{
+    "name": "top",
+    "env" : {
+        "appPublisher" :"root",
+        "appLocalName" : "hello",
+        "appSuffix" : "vcap.me"
+    },
+    "components": [
+        {
+            "name": "security",
+            "module" : null
+        },
+        {
+            "name": "sharing"
+        },
+        {
+            "name" : "iot",
+            "module": "../../index.js#plug",
+            "description": "Access to an IoT device",
+            "env": {
+                "iotMethodsFileName" : "./iot/iot_methods.js",
+                "iotDeviceManagerAppURL" :"process.env.IOT_DEVICE_MANAGER_APP_URL||https://root-gadget.cafjs.com",
+                "appDir" : null
+            }
+        }
+
+    ]
+}

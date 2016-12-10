@@ -1,7 +1,7 @@
 {
     "name": "caf_iot",
     "description": "IoT platform that runs on the device and pairs with a Cloud Assistant.",
-    "version": "0.2.40",
+    "version": "0.2.41",
     "author": "Antonio Lain <antlai@cafjs.com>",
     "dependencies": {
         "caf_components": "^0.2.0",
@@ -13,7 +13,8 @@
         "eslint": "3.1.X",
         "nodeunit" : ">=0.9",
         "minimist" : "^1.2.0",
-        "caf_core": "^0.2.0"
+        "caf_core": "^0.2.0",
+        "jsdoc": "^3.4.2"
     },
     "main": "index",
     "homepage": "http://www.cafjs.com",
@@ -25,7 +26,8 @@
         "eslint" : "./node_modules/.bin/eslint .",
         "eslintfix" : "./node_modules/.bin/eslint --fix .",
         "start" : "node ./index.js",
-        "test": "node ./node_modules/.bin/nodeunit"
+        "test": "node ./node_modules/.bin/nodeunit",
+        "docs" : "rm -fr docs; mkdir -p docs; ./node_modules/.bin/jsdoc --pedantic -c ./conf.json -d docs lib/*.js lib/ca/*.js --readme ./README.md --package ./package.json"
     },
     "engines": { "node": ">= 0.10.29" }
 }
