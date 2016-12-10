@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var caf_iot = require('../../../index.js');
 
 exports.methods = {
@@ -23,7 +23,7 @@ exports.methods = {
             }
         });
     },
-    __iot_loop__ : function(cb) {
+    __iot_loop__: function(cb) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('loop:' + now);
         cb(null);

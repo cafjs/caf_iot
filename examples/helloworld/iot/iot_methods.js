@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var caf_iot = require('../../../index.js');
 
 exports.methods = {
@@ -6,7 +6,7 @@ exports.methods = {
         this.state.counter = this.toCloud.get('counter') || 0;
         cb(null);
     },
-    __iot_loop__ : function(cb) {
+    __iot_loop__: function(cb) {
         var msg = this.fromCloud.get('msg') || 'Counter:';
         this.$.log && this.$.log.debug(msg + this.state.counter);
         this.state.counter = this.state.counter + 1;
