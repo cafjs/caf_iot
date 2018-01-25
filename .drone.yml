@@ -1,9 +1,9 @@
 build:
-  image: node:4.3
+  image: node:8
   commands:
-    - npm install
-    - npm test
-    - npm run eslint
+    - yarn install --ignore-optional
+    - yarn test
+    - yarn run eslint
 
 compose:
   database:
