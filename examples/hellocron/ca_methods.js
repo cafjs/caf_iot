@@ -3,17 +3,17 @@
 var caf = require('caf_core');
 
 exports.methods = {
-    __ca_init__: function(cb) {
-        cb(null);
+    async __ca_init__() {
+        return [];
     },
-    setMessage: function(newMsg, cb) {
+    async setMessage(newMsg) {
         var $$ = this.$.sharing.$;
         $$.fromCloud.set('msg', newMsg);
-        this.getCounter(cb);
+        return this.getCounter();
     },
-    getCounter: function(cb) {
+    async getCounter() {
         var $$ = this.$.sharing.$;
-        cb(null, $$.toCloud.get('counter'));
+        return [null, $$.toCloud.get('counter')];
     }
 };
 

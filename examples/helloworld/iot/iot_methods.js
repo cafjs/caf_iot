@@ -1,17 +1,17 @@
 'use strict';
-var caf_iot = require('../../../index.js');
+var caf_iot = require('caf_iot');
 
 exports.methods = {
-    __iot_setup__: function(cb) {
+    async __iot_setup__() {
         this.state.counter = this.toCloud.get('counter') || 0;
-        cb(null);
+        return [];
     },
-    __iot_loop__: function(cb) {
+    async __iot_loop__() {
         var msg = this.fromCloud.get('msg') || 'Counter:';
         this.$.log && this.$.log.debug(msg + this.state.counter);
         this.state.counter = this.state.counter + 1;
         this.toCloud.set('counter', this.state.counter);
-        cb(null);
+        return [];
     }
 };
 

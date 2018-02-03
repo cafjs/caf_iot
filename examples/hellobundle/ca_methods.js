@@ -6,13 +6,13 @@ var caf = require('caf_core');
 var MARGIN=100;
 
 exports.methods = {
-    __ca_init__: function(cb) {
+    async __ca_init__() {
         this.state.counter = 0;
         this.state.msg = 'foo:';
         this.state.maxAcks = 1;
-        cb(null);
+        return [];
     },
-    __ca_pulse__: function(cb) {
+    async __ca_pulse__() {
         if ((this.state.acks && (this.state.acks.length > 0) &&
              (!this.state.acks[0].result))) {
             this.$.log && this.$.log.debug('Last bundle was late');
@@ -25,14 +25,14 @@ exports.methods = {
         // `notify` improves responsiveness.
         //TRY: comment the following line, and see how bundles arrive late
         this.$.session.notify([this.state.counter], 'iot');
-        cb(null);
+        return [];
     },
-    setMessage: function(newMsg, cb) {
+    async setMessage(newMsg) {
         this.state.msg = newMsg;
-        this.getCounter(cb);
+        return this.getCounter();
     },
-    getCounter: function(cb) {
-        cb(null, this.state.msg + this.state.counter);
+    async getCounter() {
+        return [null, this.state.msg + this.state.counter];
     }
 };
 

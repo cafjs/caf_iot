@@ -3,22 +3,22 @@
 var caf = require('caf_core');
 
 exports.methods = {
-    __ca_init__: function(cb) {
+    async __ca_init__() {
         this.state.counter = 0;
         this.state.msg = 'foo:';
-        cb(null);
+        return [];
     },
-    __ca_pulse__: function(cb) {
+    async __ca_pulse__() {
         this.state.counter = this.state.counter + 1;
         this.$.session.notify([this.state.msg], 'iot');
-        cb(null);
+        return [];
     },
-    setMessage: function(newMsg, cb) {
+    async setMessage(newMsg) {
         this.state.msg = newMsg;
-        this.getCounter(cb);
+        return this.getCounter();
     },
-    getCounter: function(cb) {
-        cb(null, this.state.msg + this.state.counter);
+    async getCounter() {
+        return [null, this.state.msg + this.state.counter];
     }
 };
 

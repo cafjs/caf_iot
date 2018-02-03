@@ -21,16 +21,16 @@ We have also simplified framework methods and config files. For instance, the fi
 
 ```
 exports.methods = {
-    __iot_setup__: function(cb) {
+    async __iot_setup__() {
         this.state.counter = this.toCloud.get('counter') || 0;
-        cb(null);
+        return [];
     },
-    __iot_loop__ : function(cb) {
+    async __iot_loop__() {
         var msg = this.fromCloud.get('msg') || 'Counter:';
         this.$.log && this.$.log.debug(msg + this.state.counter);
         this.state.counter = this.state.counter + 1;
         this.toCloud.set('counter', this.state.counter);
-        cb(null);
+        return [];
     }
 };
 ```
@@ -64,16 +64,16 @@ An interesting plugin is `cron` (see {@link module:caf_iot/proxy_iot_cron}), whi
 
 ```
 exports.methods = {
-    __iot_setup__: function(cb) {
+    async __iot_setup__() {
         this.state.counter = this.toCloud.get('counter') || 0;
         this.$.cron.addCron('helloCron', 'greetings', ['Hello:'], 2000);
         this.$.cron.addCron('byeCron', 'greetings', ['Bye:'], 3000);
-        cb(null);
+        return [];
     },
-    greetings: function(greet, cb) {
+    async greetings(greet) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug(greet + now);
-        cb(null);
+        return [];
     },
     ...
 };
@@ -115,20 +115,20 @@ The device code defines three simple commands for our "drone": `up`, `down`, or 
 ```
 exports.methods = {
 ...
-    down: function(speed, cb) {
+    async down(speed) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('Down:' +  now + ' speed: ' + speed);
-        cb(null);
+        return [];
     },
-    up: function(speed, cb) {
+    async up(speed) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('Up:  ' +  now + ' speed: ' + speed);
-        cb(null);
+        return [];
     },
-    recover: function(msg, cb) {
+    async recover(msg) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('RECOVERING:' +  now + ' msg: ' + msg);
-        cb(null);
+        return [];
     },
 };
 ```
@@ -138,11 +138,11 @@ The CA code is a bit more interesting:
 ```
 var MARGIN=100;
 exports.methods = {
-    __ca_init__: function(cb) {
+    async __ca_init__() {
         this.state.maxAcks = 1;
-        cb(null);
+        return [];
     },
-    __ca_pulse__: function(cb) {
+    async __ca_pulse__() {
         if ((this.state.acks && (this.state.acks.length > 0) &&
              (!this.state.acks[0].result))) {
             this.$.log && this.$.log.debug('Last bundle was late');
@@ -152,7 +152,7 @@ exports.methods = {
         this.$.iot.sendBundle(bundle);
         // `notify` improves responsiveness.
         this.$.session.notify(['new bundle'], 'iot');
-        cb(null);
+        return [];
     },
   ...
 };
@@ -182,26 +182,24 @@ For example:
 
 ```
 exports.methods = {
-    __iot_setup__: function(cb) {
+    async __iot_setup__() {
         var self = this;
         this.$.cloud.registerHandler(function(msg) {
             var args = self.$.cloud.getMethodArgs(msg);
             self.$.queue.process('greetings', args);
         });
-        cb(null);
+        return [];
     },
-    greetings: function(msg, cb) {
-        var self = this;
+    async greetings(msg) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug(msg + now);
-        this.$.cloud.cli.getCounter(function(err, value) {
-            if (err) {
-                cb(err);
-            } else {
-                self.$.log && self.$.log.debug('Got ' + value);
-                cb(null);
-            }
-        });
+        try {
+            var value = await this.$.cloud.cli.getCounter().getPromise();
+            this.$.log && this.$.log.debug('Got ' + value);
+            return [];
+        } catch (err) {
+            return [err];
+        }
     },
     ...
 };

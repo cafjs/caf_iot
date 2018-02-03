@@ -16,6 +16,7 @@ limitations under the License.
 
 "use strict";
 
+var util = require('util');
 
 exports.methods = {
     '__iot_setup__' : function(cb) {
@@ -26,7 +27,7 @@ exports.methods = {
         cb(null);
     },
 
-    '__iot_loop__' : function(cb) {
+    async __iot_loop__() {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug(now + ' loop:');
         this.state.current = now;
@@ -38,7 +39,7 @@ exports.methods = {
                                        this.fromCloud.get('actuateY'));
         this.toCloud.set('sensorX', now);
         this.toCloud.set('sensorY', now+1);
-        cb(null);
+        return [];
     },
 
     'hello' : function(name, cb) {
@@ -49,22 +50,21 @@ exports.methods = {
         cb(null);
     },
 
-    'bye' : function(name, cb) {
-        var self = this;
+    async bye(name) {
         var now = (new Date()).getTime();
         this.state.current = now;
         this.$.log && this.$.log.debug(now + ' bye1:' + name);
-        setTimeout(function() {
-            if (self.state.current !== now) {
-                self.state.error = true;
-                cb(new Error('BUG!: Found race current !== now'));
-            } else {
-                now = (new Date()).getTime();
-                self.$.log && self.$.log.debug(now + ' bye2:' + name);
-                self.state.bye = self.state.bye + 1;
-                cb(null);
-            }
-        }, 1000);
+        var setTimeoutPromise = util.promisify(setTimeout);
+        await setTimeoutPromise(1000);
+        if (this.state.current !== now) {
+            this.state.error = true;
+            return[new Error('BUG!: Found race current !== now')];
+        } else {
+            now = (new Date()).getTime();
+            this.$.log && this.$.log.debug(now + ' bye2:' + name);
+            this.state.bye = this.state.bye + 1;
+            return [];
+        }
     },
 
     //backdoor for testing
@@ -73,4 +73,3 @@ exports.methods = {
                  fromCloud: this.fromCloud };
     }
 };
-

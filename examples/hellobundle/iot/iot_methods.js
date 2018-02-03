@@ -1,31 +1,31 @@
 'use strict';
-var caf_iot = require('../../../index.js');
+var caf_iot = require('caf_iot');
 
 exports.methods = {
-    __iot_setup__: function(cb) {
-        cb(null);
+    async __iot_setup__() {
+        return [];
     },
-    down: function(speed, cb) {
+    async down(speed) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('vvvvvvvvvvDown:' + now + ' speed: ' +
                                        speed);
-        cb(null);
+        return [];
     },
-    up: function(speed, cb) {
+    async up(speed) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('^^^^^^^^^^Up:  ' + now + ' speed: ' +
                                        speed);
-        cb(null);
+        return [];
     },
-    recover: function(msg, cb) {
+    async recover(msg) {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('RECOVERING:' + now + ' msg: ' + msg);
-        cb(null);
+        return [];
     },
-    __iot_loop__: function(cb) {
+    async __iot_loop__() {
         var now = (new Date()).getTime();
         this.$.log && this.$.log.debug('loop:' + now);
-        cb(null);
+        return [];
     }
 };
 
