@@ -4,6 +4,8 @@ build:
     - yarn install --ignore-optional
     - yarn test
     - yarn run eslint
+    - yarn run checktype
+
 
 compose:
   database:
