@@ -98,6 +98,9 @@ module.exports = {
                 });
             },
             function(cb) {
+                setTimeout(function() {cb(null);}, 100);
+            },
+            function(cb) {
                 var all = this.$IoT.topIoT.$.iot.$.handler.debugGetAll();
                 // just one  exec (5 sec interval, repeat every 25 sec)
                 test.equal(0, all.fromCloud.get('actuateX'));
