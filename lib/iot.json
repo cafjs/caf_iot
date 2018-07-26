@@ -18,7 +18,8 @@
         "maxHangRetries":  "process.env.MAX_HANG_RETRIES||200",
         "methodsFileName" : "process.env.METHODS_FILE_NAME||./iot_methods.js",
         "tokenDir" : "process.env.TOKEN_DIR||null",
-        "tokenFile" : "process.env.TOKEN_FILE||token"
+        "tokenFile" : "process.env.TOKEN_FILE||token",
+        "debugger" : "process.env.DEBUGGER||false"
     },
     "components": [
         {
