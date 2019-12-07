@@ -101,11 +101,11 @@ If we bundle commands, both are cached in the drone before anything happens. If 
 
 Extra time is added to bundles for network propagation but, when a bundle arrives to the device late, it gets ignored. The CA can detect that by monitoring responses in `this.state.acks`; this is an array of max size `this.state.maxAcks`, and elements of type:
 
-    {response: boolean, index: number}
+    {result: boolean, index: number}
 
 where:
 
-* `response`: `False` if the bundle was late, `True` otherwise.
+* `result`: `False` if the bundle was late, `True` otherwise.
 * `index`: An identifier for the bundle. It matches the one previously returned by {@link module:caf_iot/ca/proxy_iot#sendBundle}.
 
 Let's look at an example.
