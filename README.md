@@ -85,7 +85,7 @@ The default behavior is rather crude, just log and do a full reset.
 
 It is recommended to override that behavior by adding a method `__iot_error__`.
 
-This method could avoid the reset by **not** propagating the error in the callback, see {@link module:caf_iot/plug_iot_handler#__iot_error__}  and `examples/hellocron/iot/iot_methods.js`.
+This method could avoid the reset by **not** propagating the error in the callback, see `__iot_error__` in {@link module:caf_iot/plug_iot_handler}  and `examples/hellocron/iot/iot_methods.js`.
 
 ### Hello Bundles (see `examples/hellobundle`)
 
