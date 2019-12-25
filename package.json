@@ -11,7 +11,7 @@
         "get-parameter-names" : "^0.3.0"
     },
     "devDependencies": {
-        "eslint": "^3.1.1",
+        "eslint": "^6.8.0",
         "nodeunit" : ">=0.9",
         "minimist" : "^1.2.0",
         "caf_core": "^0.3.0",
@@ -29,8 +29,8 @@
         "url": "https://github.com/cafjs/caf_iot.git"
     },
     "scripts": {
-        "eslint" : "./node_modules/.bin/eslint .",
-        "eslintfix" : "./node_modules/.bin/eslint --fix .",
+        "eslint" : "./node_modules/.bin/eslint -c .eslintrc.js .",
+        "eslintfix" : "./node_modules/.bin/eslint -c .eslintrc.js --fix .",
         "start" : "node ./index.js",
         "test": "node ./node_modules/.bin/nodeunit",
         "docs" : "rm -fr docs; mkdir -p docs; ./node_modules/.bin/jsdoc --pedantic -c ./conf.json -d docs lib/*.js lib/ca/*.js --readme ./README.md --package ./package.json",
