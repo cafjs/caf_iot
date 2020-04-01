@@ -1,9 +1,9 @@
 'use strict';
 
-var caf = require('caf_core');
+const caf = require('caf_core');
 
 // TRY: reduce the margin to <10msec and see how bundles arrive late
-var MARGIN=100;
+const MARGIN=100;
 
 exports.methods = {
     async __ca_init__() {
@@ -18,7 +18,7 @@ exports.methods = {
             this.$.log && this.$.log.debug('Last bundle was late');
         }
         this.state.counter = this.state.counter + 1;
-        var bundle = this.$.iot.newBundle(MARGIN);
+        const bundle = this.$.iot.newBundle(MARGIN);
         // TRY: kill the server, and the device eventually executes `recover`
         bundle.down(0, [1]).up(300, [1]).recover(5000, ['go home']);
         this.$.iot.sendBundle(bundle);

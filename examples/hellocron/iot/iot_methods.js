@@ -1,10 +1,10 @@
 'use strict';
 /* eslint-disable  no-unreachable */
 
-var caf_iot = require('caf_iot');
-var myUtils = caf_iot.caf_components.myUtils;
-var util = require('util');
-var setTimeoutPromise = util.promisify(setTimeout);
+const caf_iot = require('caf_iot');
+const myUtils = caf_iot.caf_components.myUtils;
+const util = require('util');
+const setTimeoutPromise = util.promisify(setTimeout);
 
 exports.methods = {
     async __iot_setup__() {
@@ -15,14 +15,14 @@ exports.methods = {
         return [];
     },
     async __iot_loop__() {
-        var msg = this.fromCloud.get('msg') || 'Counter:';
+        const msg = this.fromCloud.get('msg') || 'Counter:';
         this.$.log && this.$.log.debug(msg + this.state.counter);
         this.state.counter = this.state.counter + 1;
         this.toCloud.set('counter', this.state.counter);
         return [];
     },
     async greetings(greet) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug(greet + now);
         return [];
     },

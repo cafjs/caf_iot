@@ -1,17 +1,17 @@
-# CAF.js (Cloud Assistant Framework)
+# Caf.js
 
 Co-design permanent, active, stateful, reliable cloud proxies with your web app and gadgets.
 
-See http://www.cafjs.com
+See https://www.cafjs.com
 
-## CAF for IoT
+## Platform for IoT Devices
 [![Build Status](https://travis-ci.org/cafjs/caf_iot.svg?branch=master)](https://travis-ci.org/cafjs/caf_iot)
 
-IoT platform that runs on the device and pairs with a Cloud Assistant.
+IoT platform that runs on the device and pairs with a CA.
 
 The IoT device programming model is very similar to programming a CA (see {@link external:caf_ca}). In fact, most of the code is reused.
 
-Method execution is serialized by a queue, no global state, similar plugins, and transactional changes to local state can be rolled backed on abort.
+Things similar to the cloud implementation. Method execution is serialized by a queue, no global state, similar plugins, and transactional changes to local state can be rolled backed on abort.
 
 However, we do not checkpoint state, and there is only one "CA", i.e., the device. We are not that concerned about long term consistency either, since we reset the device every reboot; therefore, some plugins may not delay external actions, improving responsiveness.
 
@@ -71,7 +71,7 @@ exports.methods = {
         return [];
     },
     async greetings(greet) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug(greet + now);
         return [];
     },
@@ -91,7 +91,7 @@ This method could avoid the reset by **not** propagating the error in the callba
 
 The CA can invoke device methods by using timed bundles of commands.
 
-CAF.js synchronizes device clocks with the cloud, coordinating **soft** real-time actions across the globe with UTC time. Given a few seconds to propagate commands,  millions of devices could blink within a hundred milliseconds of each other.
+`Caf.js` synchronizes device clocks with the cloud, coordinating **soft** real-time actions across the globe with UTC time. Given a few seconds to propagate commands,  millions of devices could blink within a hundred milliseconds of each other.
 
 Why bundles and not just separate commands?
 
@@ -116,17 +116,17 @@ The device code defines three simple commands for our "drone": `up`, `down`, or 
 exports.methods = {
 ...
     async down(speed) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug('Down:' +  now + ' speed: ' + speed);
         return [];
     },
     async up(speed) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug('Up:  ' +  now + ' speed: ' + speed);
         return [];
     },
     async recover(msg) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug('RECOVERING:' +  now + ' msg: ' + msg);
         return [];
     },
@@ -183,18 +183,17 @@ For example:
 ```
 exports.methods = {
     async __iot_setup__() {
-        var self = this;
-        this.$.cloud.registerHandler(function(msg) {
-            var args = self.$.cloud.getMethodArgs(msg);
-            self.$.queue.process('greetings', args);
+        this.$.cloud.registerHandler((msg) => {
+            var args = this.$.cloud.getMethodArgs(msg);
+            this.$.queue.process('greetings', args);
         });
         return [];
     },
     async greetings(msg) {
-        var now = (new Date()).getTime();
+        const now = (new Date()).getTime();
         this.$.log && this.$.log.debug(msg + now);
         try {
-            var value = await this.$.cloud.cli.getCounter().getPromise();
+            const value = await this.$.cloud.cli.getCounter().getPromise();
             this.$.log && this.$.log.debug('Got ' + value);
             return [];
         } catch (err) {
@@ -205,7 +204,9 @@ exports.methods = {
 };
 ```
 
-Every time the CA notifies the device, a method call for `greetings` gets queued,  and eventually, that method will call back the CA, reading its counter. The default session identifier for a device is `iot`, but it can be changed with the property `session` (see {@link module:caf_iot/plug_iot_cloud}).
+Every time the CA notifies the device, a method call for `greetings` gets queued,  and eventually, that method will call back the CA, reading its counter.
+
+The default session identifier for a device is `iot`, but it can be changed with the property `session` (see {@link module:caf_iot/plug_iot_cloud}).
 
 ### Much more...
 

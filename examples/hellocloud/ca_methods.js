@@ -1,6 +1,6 @@
 'use strict';
 
-var caf = require('caf_core');
+const caf = require('caf_core');
 
 exports.methods = {
     async __ca_init__() {

@@ -1,20 +1,21 @@
 {
     "name": "caf_iot",
     "description": "IoT platform that runs on the device and pairs with a Cloud Assistant.",
-    "version": "0.3.6",
+    "version": "0.4.0",
     "author": "Antonio Lain <antlai@cafjs.com>",
+    "license": "Apache-2.0",
     "dependencies": {
-        "caf_components": "^0.3.0",
-        "caf_transport": "^0.3.0",
-        "caf_cli": "^0.3.0",
-        "caf_sharing": "^0.3.0",
+        "caf_components": "^0.4.0",
+        "caf_transport": "^0.4.0",
+        "caf_cli": "^0.4.0",
+        "caf_sharing": "^0.4.0",
         "get-parameter-names" : "^0.3.0"
     },
     "devDependencies": {
         "eslint": "^6.8.0",
         "nodeunit" : ">=0.9",
         "minimist" : "^1.2.0",
-        "caf_core": "^0.3.0",
+        "caf_core": "^0.4.0",
         "typescript": "3.7.3",
         "@types/node": "^12.12.21",
         "jsdoc": "^3.4.2"
