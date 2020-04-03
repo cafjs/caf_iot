@@ -77,7 +77,7 @@ exports.methods = {
     'iotForceHello' : function(delay, msg, cb) {
         var bundle = this.$.iot.newBundle()
                 .hello(delay, [msg]);
-        this.$.iot.sendBundle(bundle, this.$.iot.NOW);
+        this.$.iot.sendBundle(bundle, this.$.iot.NOW_SAFE);
         this.$.session.notify(['doHello'], IOT_SESSION);
         this.getState(cb);
     },
@@ -99,4 +99,3 @@ exports.methods = {
         cb(null);
     }
 };
-
