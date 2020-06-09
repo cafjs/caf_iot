@@ -19,7 +19,8 @@
         "methodsFileName" : "process.env.METHODS_FILE_NAME||./iot_methods.js",
         "tokenDir" : "process.env.TOKEN_DIR||null",
         "tokenFile" : "process.env.TOKEN_FILE||token",
-        "debugger" : "process.env.DEBUGGER||false"
+        "debugger" : "process.env.DEBUGGER||false",
+        "logLevel" : "process.env.LOG_LEVEL||WARN"
     },
     "components": [
         {
@@ -40,7 +41,7 @@
                     "env" : {
                         "maxRetries" : "$._.env.maxRetries",
                         "retryDelay" : "$._.env.retryDelay",
-                        "logLevel" : "DEBUG"
+                        "logLevel" : "$._.env.logLevel"
                     },
                     "components" : [
                         {
