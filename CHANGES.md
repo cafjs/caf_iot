@@ -6,6 +6,8 @@ The  copyright of the original `CAF` project is assigned to `Hewlett-Packard Dev
 
 ## 0.4.3
  - Add control for log level
+ - Do not retry token registration
+ - Fix initialization in `plug_iot_handler`
 
 ## 0.4.2
  - Fix cancellations from immediate commands in different bundles
