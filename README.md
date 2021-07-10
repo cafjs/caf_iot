@@ -5,7 +5,8 @@ Co-design cloud assistants with your web app and IoT devices.
 See https://www.cafjs.com
 
 ## Platform for IoT Devices
-[![Build Status](https://travis-ci.org/cafjs/caf_iot.svg?branch=master)](https://travis-ci.org/cafjs/caf_iot)
+
+[![Build Status](https://github.com/cafjs/caf_iot/actions/workflows/push.yml/badge.svg)](https://github.com/cafjs/caf_iot/actions/workflows/push.yml)
 
 IoT platform that runs on the device and pairs with a CA.
 
