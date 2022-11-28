@@ -5,7 +5,7 @@
         "appProtocol" : "process.env.APP_PROTOCOL||http",
         "appPublisher" : "process.env.APP_PUBLISHER||root",
         "appLocalName" : "process.env.APP_LOCAL_NAME||helloiot",
-        "appSuffix" : "process.env.APP_SUFFIX||vcap.me:3000",
+        "appSuffix" : "process.env.APP_SUFFIX||localtest.me:3000",
         "interval": "process.env.INTERVAL||1000"
     },
     "components": [

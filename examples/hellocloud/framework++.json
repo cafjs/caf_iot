@@ -3,7 +3,7 @@
     "env" : {
         "appPublisher" :"root",
         "appLocalName" : "hellocloud",
-        "appSuffix" : "vcap.me"
+        "appSuffix" : "localtest.me"
     },
     "components": [
         {

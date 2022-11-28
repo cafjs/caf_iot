@@ -13,7 +13,7 @@ const setTimeoutPromise = util.promisify(setTimeout);
  *
  *  With security on, we would need a token to authenticate `from`.
  */
-const URL = 'http://root-helloworld.vcap.me:3000/#from=foo-ca1&ca=foo-ca1';
+const URL = 'http://root-helloworld.localtest.me:3000/#from=foo-ca1&ca=foo-ca1';
 
 const s = new caf_cli.Session(URL);
 

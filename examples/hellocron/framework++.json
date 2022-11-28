@@ -3,7 +3,7 @@
     "env" : {
         "appPublisher" :"root",
         "appLocalName" : "hellocron",
-        "appSuffix" : "vcap.me"
+        "appSuffix" : "localtest.me"
     },
     "components": [
         {
